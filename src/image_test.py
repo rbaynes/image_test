@@ -7,22 +7,22 @@
 import os
 from PIL import Image
 
-def resize(input_file, output_file, size) -> None:
+def resize(input_file, output_file, size=None) -> None:
     try:
-        im = Image.open(input_file)
-        im.thumbnail(size, Image.ANTIALIAS)
-        im.save(output_file, "PNG")
-        print(f'Resized {input_file} to {output_file}')
+        img = Image.open(input_file)
+        if size is None:
+            # halves each dimension 
+            size = int(img.size[0] / 2), int(img.size[1] / 2)
+        print(f'Resized {img.size} {input_file} to {size} {output_file}')
+        img.thumbnail(size, Image.ANTIALIAS)
+        img.save(output_file)  #, "PNG")
     except Exception as e:
         print(f'Error {e}')
         
-med_size = 640, 512
-thumb_size = 128, 128
-
 input_file = 'images/ACE4.png'
 if_split = os.path.splitext(input_file)
 med_file = if_split[0] + '_med' + if_split[1]
 thumb_file = if_split[0] + '_thumb' + if_split[1]
 
-resize(input_file, med_file, med_size)
-resize(input_file, thumb_file, thumb_size)
+resize(input_file, med_file) 
+resize(input_file, thumb_file, (128, 128))
