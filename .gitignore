@@ -1,4 +1,6 @@
 pyenv/
+images/ACE4_med.png
+images/ACE4_thumb.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
